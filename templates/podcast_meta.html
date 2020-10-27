@@ -1,0 +1,74 @@
+
+
+<h3>Podcast Data</h3>
+<p>{{podcast_dict.description}}</p>
+<dl>
+  {% for key in podcast_dict %} 
+  {% if key == 'archived' %} {% continue %} {%endif %} 
+  {% if key == 'description' %} {% continue %} {%endif %} 
+  {% if key == 'items' %} {% continue %} {%endif %} 
+  {% if key == 'itunes:owner' %} {% continue %} {% endif %} 
+  {% if key == 'itunes:new-feed-url' %} {% continue %} {% endif %} 
+  {% if key == 'cover art' %} 
+    <dt>cover art</dt>
+    {%if episode %}
+        <dd><a href="../img/{{ podcast_dict['cover art']}}">{{podcast_dict['cover art']}}</a></dd>
+    {% else %}
+        <dd><a href="../img/{{ podcast_dict['cover art']}}">{{podcast_dict['cover art']}}</a></dd>
+    {% endif %}
+  {% continue %} {% endif %} 
+  
+
+  
+
+  {% if key == 'title' %} 
+    <dt>title</dt>
+    {%if episode %}
+      <dd><a href="../">{{podcast_dict.title}}</a></dd>
+    {% else %}
+      <dd>{{podcast_dict.title}}</dd>
+    {% endif %}
+  
+  
+  {%continue %} 
+  {% endif %} 
+  {% if key == 'url' %} {% continue %} {% endif %} 
+  {% if key == 'creativeCommons:license' %}
+    {% if podcast_dict[key] %}
+        <dt>creativeCommons</dt>
+        <dd>{{podcast_dict[key]}}</dd>
+    {% endif %}
+  {% continue %} {% endif %} 
+  
+  {% if key == 'itunes:category' %}
+    <dt>itunes:category</dt>
+    
+    <dd>{% for cat in podcast_dict[key] %}
+        {{ " and " if loop.last }} {{ cat  }}{{ ", " if not loop.last }}
+    {% endfor %}
+    </dd>
+  {% continue %} {% endif %} 
+  {% if podcast_dict[key] %}
+    <dt>{{ key }}</dt>
+    <dd>{{podcast_dict[key]}}</dd>
+    {% endif %} 
+ {% endfor%}
+  <dt>url</dt>
+  <dd>{{podcast_dict.url}}</dd>
+  
+
+</dl>
+
+  
+<dl>
+  <dt>Archived</dt>
+  <dd>{{podcast_dict.archived}}</dd>
+
+  <dt>JSON Data</dt>
+    {%if episode %}
+      <dd><a href="../{{slugify(podcast_dict['title'])}}.json">{{slugify(podcast_dict['title'])}}.json</a></dd>
+    {% else %}
+      <dd><a href="{{slugify(podcast_dict['title'])}}.json>{{slugify(podcast_dict['title'])}}.json</a></dd>
+    {% endif %}
+
+</dl>

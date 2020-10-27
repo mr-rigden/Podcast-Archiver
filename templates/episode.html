@@ -1,0 +1,36 @@
+{% include 'top.html' %}
+<div id="content-header">
+  <h1>{{episode.title}}</h1>
+</div>
+
+<div id="content-media">
+    <audio controls preload="none">
+        <source
+          src="../audio/{{episode.audio_file}}"
+        />
+        Your browser does not support the audio element.
+    </audio>
+</div>
+<div id="content-description">{{episode.description}}</div>
+
+<div id="content-footer">
+<hr />
+    <h3>Episode Data</h3>
+
+    <dl>
+    {% for key in episode %} 
+        {% if key == 'audio_file' %} {% continue %} {%endif %} 
+        {% if key == 'description' %} {% continue %} {%endif %} 
+        {% if key == 'itunes:subtitle' %} {% continue %} {%endif %} 
+        {% if key == 'enclosure' %} {% continue %} {%endif %} 
+        {% if key == 'title' %} {% continue %} {%endif %} 
+        {% if episode[key] %}
+            <dt>{{ key }}</dt>
+            <dd>{{episode[key]}}</dd>
+        {% endif %}
+    {% endfor %}
+    </dl>
+
+  {% include 'podcast_meta.html' %}
+</div>
+{% include 'bottom.html' %}
